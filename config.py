@@ -13,12 +13,10 @@ VALID_BATCH_SIZE = 7
 EPOCHS = 3
 
 # define distil base uncased path
-DISTIL_BERT_PATH = (
-    r"D:/My Workspace/Toxic-comment-detector/input/distilbert-base-uncased"
-)
+DISTIL_BERT_PATH = "distilbert-base-uncased"
 
 # define the saving model path
-MODEL_PATH = r"D:/My Workspace/Toxic-comment-detector/model/model.bin"
+MODEL_PATH = "model/model.bin"
 
 # define training file path
 TRAINING_FILE = (
