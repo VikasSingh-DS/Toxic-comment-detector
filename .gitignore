@@ -131,7 +131,6 @@ dmypy.json
 
 # input data and models
 input/
-model/
 .vscode/
 
 
@@ -140,4 +139,3 @@ model/
 *.h5
 *.pkl
 *.pth
-*.bin
