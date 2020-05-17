@@ -1,11 +1,10 @@
 import config
 import torch
 import numpy as np
-import time
 from flask import Flask, render_template, request
 from model import DISTILBERTBaseUncased
 
-DEVICE = "cuda"
+DEVICE = "cpu"
 app = Flask(__name__)
 
 
