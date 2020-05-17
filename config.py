@@ -16,7 +16,7 @@ EPOCHS = 3
 DISTIL_BERT_PATH = "distilbert-base-uncased"
 
 # define the saving model path
-MODEL_PATH = "model/model.bin"
+MODEL_PATH = "weight.bin"
 
 # define training file path
 TRAINING_FILE = (
