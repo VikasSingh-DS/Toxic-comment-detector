@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Model Description</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}" />
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+            <div class="container">
+                <a class="navbar-brand mr-4" href="/">Toxic Comment Detector</a>
+                <div class="collapse navbar-collapse" id="navbarToggle">
+                    <div class="navbar-nav mr-auto">
+                        <a class="nav-item nav-link" href="/model">Model Description</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Model used in the project</h1>
+        <p>This project used the distilBERT model is used for classifying toxic and non-toxic comments. Due to the
+            limitation of the computational resources distilBERT model has used for classification.</p>
+
+        <p>DistilBERT processes the sentence and passes along some information that is extracted from it on to the next
+            model. DistilBERT is a smaller version of BERT developed and open-sourced by the team at HuggingFace. It’s a
+            lighter and faster version of BERT that roughly matches its performance.</p>
+
+        <p>The DistilBERT model was proposed in the blog post Smaller, faster, cheaper, lighter: Introducing DistilBERT,
+            a distilled version of BERT, and the paper DistilBERT, a distilled version of BERT: smaller, faster, cheaper
+            and lighter. DistilBERT is a small, fast, cheap, and light Transformer model trained by distilling Bert
+            base. It has 40% less parameters than Bert-base-uncased, runs 60% faster while preserving over 95% of Bert’s
+            performances as measured on the GLUE language understanding benchmark.</p>
+        <a href="https://huggingface.co/transformers/model_doc/distilbert.html">huggingface.co</a><br>
+        <img src="/static/01.png" width="600" height="400"> </img><br>
+        <a href="http://jalammar.github.io/illustrated-bert/">Image Source</a>
+        <br></br>
+        <h1>Prepare the dataset for BERT modeling</h1>
+        <p>We have to transform our dataset into the format that BERT can be trained on. To feed our text to BERT, it
+            must be split into tokens, and then these tokens must be mapped to their index in the tokenizer
+            vocabulary.The tokenization must be performed by the tokenizer included with BERT--the below cell will
+            download this for us. We'll be using the "uncased" version here.</p>
+        <h4>Required Formatting</h4>
+        <ul>
+            <li>Add special tokens to the start and end of each sentence.</li>
+            <li>Pad & truncate all sentences to a single constant length.</li>
+            <li>Explicitly differentiate real tokens from padding tokens with the "attention mask".</li>
+        </ul>
+        <h4>Special Tokens</h4>
+        <img src="/static/02.png" width="500" height="600"> </img><br>
+        <a href="https://mccormickml.com/2019/07/22/BERT-fine-tuning/">Image Source</a><br>
+
+        <script src="https://gist.github.com/VikasSingh-DS/7b47b5e61a0c8751a819b9f6a1b44d51.js"></script>
+
+        <h4>Code explanation</h4>
+        <ul>
+            <li>Load the DistilBERT tokenizer</li>
+            <li>Convert all of our sentences, we are useing tokenizer.encode_plus function combines multiple
+                steps</li>
+            <li>Split the sentence into tokens; Add the special [CLS] and [SEP] tokens; Map the tokens to their
+                IDs; Pad or truncate all sentences to the same length.</li>
+        </ul>
+
+        <h4>Sentence Length & Attention Mask</h4>
+        <img src="/static/03.png" width="500" height="600"> </img><br>
+        <a href="https://mccormickml.com/2019/07/22/BERT-fine-tuning/">Image Source</a><br>
+        <br></br>
+
+        <h1> DistilBERT classification Model</h1>
+        <p>For this task, we first want to modify the pre-trained DistilBERT model to give outputs for classification,
+            and then we want to continue training the model on our dataset until that the entire model, end-to-end, is
+            well-suited for our task.</p>
+
+        <p>Thankfully, the huggingface pytorch implementation includes a set of interfaces designed for a variety of
+            NLP tasks. Though these interfaces are all built on top of a trained DistilBERT model, each has different
+            top layers and output types designed to accomodate their specific NLP task.</p>
+
+        <script src="https://gist.github.com/VikasSingh-DS/ac44eceaae708ae020fc66299b203071.js"></script>
+        <h4>Code explanation</h4>
+        <ul>
+            <li>Load the DistilBERT model. This is the normal BERT model with an added single linear layer on top for
+                classification that we will use as a sentence classifier.</li>
+            <li>Than feed input data, the entire pre-trained DistilBERT model and the additional untrained
+                classification layer
+                is trained on our specific task.</li>
+            <li>Model has embedding layers; The first of the twelve transformers; return output layer</li>
+        </ul>
+        <img src="/static/04.png" width="500" height="600"> </img><br>
+        <br></br>
+
+        <h1>Model's training and accuracy</h1>
+        I have tried a lot of different values for parameters: learning rate, Batch size, Number of epochs,
+        weight_decay_rate. In the end the model had the following parameters:
+        <ul>
+            <li>Learning rate 0.2 with a decay of 0.5 after each epoch.</li>
+            <li>Training Batch size 14 and validation batch size 7.</li>
+            <li>F1 score of model is 0.80</li>
+        </ul>
+
+        <hr>
+
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; <a href="https://github.com/Erlemar/digit-draw-recognize">Github</a></p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Toxic Comment Detector</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}" />
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+            <div class="container">
+                <a class="navbar-brand mr-4" href="/">Toxic Comment Detector</a>
+                <div class="collapse navbar-collapse" id="navbarToggle">
+                    <div class="navbar-nav mr-auto">
+                        <a class="nav-item nav-link" href="/model">Model Description</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <form style="width: 100%; margin-left: 20%;" action="{{ url_for('predict')}}" method="post">
+            <div class="form">
+                <textarea type="text" name="text" rows="5" cols="80" placeholder="Type Your Text Here..."></textarea>
+                <br /><br />
+                <input class="btn btn-primary" type="submit" value="Make prediction" />
+                <br /><br />
+                <h4 style="color:black;"> Toxic Probability: </h4>
+                <h4 style="color:red;"> {{prediction_text}} %</h4>
+
+            </div>
+        </form>
+
+
+        <hr>
+
+        <div class="row">
+            <div class="col-md-4">
+                <h2>About the app</h2>
+                <p>This app can detect the probability of toxic comments. Write the text on the above box and press the
+                    'Make Prediction' button to see the probability of toxic comment. A main area of focus is machine
+                    learning models that can identify toxicity in online conversations, where toxicity is defined as
+                    anything rude, disrespectful or otherwise likely to make someone leave a discussion. If these toxic
+                    contributions can be identified, we could have a safer, more collaborative internet.
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <h2>Collecting the data</h2>
+                <p>The dataset collected from the kaggle competition entitles Jigsaw Multilingual Toxic Comment
+                    Classification. The primary data for the competition is, in each provided file, the comment_text
+                    column. This contains the text of a comment which has been classified as toxic or non-toxic (0...1
+                    in the toxic column). The train set’s comments are entirely in English and come either from Civil
+                    Comments or Wikipedia talk page edits.
+                    <a href="https://www.kaggle.com/c/jigsaw-multilingual-toxic-comment-classification">Kaggle</a>
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <h2>Limitations of project</h2>
+                <p>The model is trained on the 1,50,000 sample only due to the limitation of computational resources.
+                    Train smaller models like DistilBERT (It has 40% less parameters than bert-base-uncased, runs 60%
+                    faster while preserving over 95% of Bert’s performances) as Heroku free tier size is 512MB so large
+                    applications may cause memory error and failure of your application</p>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; <a href="https://github.com/Erlemar/digit-draw-recognize">Github</a></p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+</body>
+
+</html>
