@@ -1,8 +1,8 @@
-import config
+import numpy as np
 import torch
 import transformers
-import numpy as np
 from flask import Flask, render_template, request
+
 from model import DISTILBERTBaseUncased
 
 MAX_LEN = 320
