@@ -1,8 +1,7 @@
 # import torch
+import torch
 import torch.nn as nn
 import transformers
-import torch
-import config
 
 
 class DISTILBERTBaseUncased(nn.Module):
