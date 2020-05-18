@@ -1,12 +1,17 @@
 import config
 import torch
+import transformers
 import numpy as np
 from flask import Flask, render_template, request
 from model import DISTILBERTBaseUncased
 
+MAX_LEN = 320
+TOKENIZER = transformers.DistilBertTokenizer.from_pretrained(
+    "distilbert-base-uncased", do_lower_case=True
+)
 DEVICE = "cpu"
 MODEL = DISTILBERTBaseUncased()
-MODEL.load_state_dict(torch.load(config.MODEL_PATH))
+MODEL.load_state_dict(torch.load("weight.bin"))
 MODEL.to(DEVICE)
 MODEL.eval()
 
@@ -14,8 +19,8 @@ app = Flask(__name__)
 
 
 def sentence_prediction(sentence):
-    tokenizer = config.TOKENIZER
-    max_len = config.MAX_LEN
+    tokenizer = TOKENIZER
+    max_len = MAX_LEN
     comment = str(sentence)
     comment = " ".join(comment.split())
 
