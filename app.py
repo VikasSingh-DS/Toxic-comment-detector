@@ -1,8 +1,7 @@
-import numpy as np
 import torch
 import transformers
+import numpy as np
 from flask import Flask, render_template, request
-
 from model import DISTILBERTBaseUncased
 
 MAX_LEN = 320
@@ -11,7 +10,7 @@ TOKENIZER = transformers.DistilBertTokenizer.from_pretrained(
 )
 DEVICE = "cpu"
 MODEL = DISTILBERTBaseUncased()
-MODEL.load_state_dict(torch.load("weight.bin"))
+# MODEL.load_state_dict(torch.load("weight.bin"))
 MODEL.to(DEVICE)
 MODEL.eval()
 
