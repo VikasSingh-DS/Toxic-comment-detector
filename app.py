@@ -9,10 +9,6 @@ TOKENIZER = transformers.DistilBertTokenizer.from_pretrained(
     "input/distilbert-base-uncased", do_lower_case=True
 )
 DEVICE = "cpu"
-MODEL = DISTILBERTBaseUncased()
-MODEL.load_state_dict(torch.load("weight.bin"))
-MODEL.to(DEVICE)
-MODEL.eval()
 
 app = Flask(__name__)
 
@@ -68,4 +64,8 @@ def predict():
 
 
 if __name__ == "__main__":
+    MODEL = DISTILBERTBaseUncased()
+    MODEL.load_state_dict(torch.load("weight.bin"))
+    MODEL.to(DEVICE)
+    MODEL.eval()
     app.run(debug=True)
