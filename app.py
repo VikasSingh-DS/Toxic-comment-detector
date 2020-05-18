@@ -6,7 +6,7 @@ from model import DISTILBERTBaseUncased
 
 MAX_LEN = 320
 TOKENIZER = transformers.DistilBertTokenizer.from_pretrained(
-    "input/distilbert-base-uncased", do_lower_case=True
+    "distilbert-base-uncased", do_lower_case=True
 )
 DEVICE = "cpu"
 
