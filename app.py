@@ -4,6 +4,7 @@ import numpy as np
 from flask import Flask, render_template, request
 from model import DISTILBERTBaseUncased
 
+MODEL = None
 DEVICE = "cpu"
 app = Flask(__name__)
 
