@@ -13,7 +13,7 @@ class DISTILBERTBaseUncased(nn.Module):
     def __init__(self):
         super(DISTILBERTBaseUncased, self).__init__()
         self.bert = transformers.DistilBertModel.from_pretrained(
-            "distilbert-base-uncased"
+            "input/distilbert-base-uncased",
         )
         self.bert_drop = nn.Dropout(0.3)  # define the dropout
         self.out = nn.Linear(768, 1)  # fully connected linear layer
