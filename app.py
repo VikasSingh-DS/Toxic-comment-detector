@@ -4,8 +4,12 @@ import numpy as np
 from flask import Flask, render_template, request
 from model import DISTILBERTBaseUncased
 
-MODEL = None
 DEVICE = "cpu"
+MODEL = DISTILBERTBaseUncased()
+MODEL.load_state_dict(torch.load(config.MODEL_PATH))
+MODEL.to(DEVICE)
+MODEL.eval()
+
 app = Flask(__name__)
 
 
@@ -60,8 +64,4 @@ def predict():
 
 
 if __name__ == "__main__":
-    MODEL = DISTILBERTBaseUncased()
-    MODEL.load_state_dict(torch.load(config.MODEL_PATH))
-    MODEL.to(DEVICE)
-    MODEL.eval()
     app.run(debug=True)
