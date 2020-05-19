@@ -4,19 +4,6 @@ import numpy as np
 from flask import Flask, render_template, request
 from model import DISTILBERTBaseUncased
 
-app = Flask(__name__)
-
-
-@app.route("/")
-def index_page():
-    return render_template("index.html")
-
-
-@app.route("/model")
-def models():
-    return render_template("model.html")
-
-
 MAX_LEN = 320
 TOKENIZER = transformers.DistilBertTokenizer.from_pretrained(
     "distilbert-base-uncased", do_lower_case=True
@@ -26,6 +13,8 @@ MODEL = DISTILBERTBaseUncased()
 MODEL.load_state_dict(torch.load("weight.bin"))
 MODEL.to(DEVICE)
 MODEL.eval()
+
+app = Flask(__name__)
 
 
 def sentence_prediction(sentence):
@@ -55,6 +44,16 @@ def sentence_prediction(sentence):
 
     outputs = torch.sigmoid(outputs).cpu().detach().numpy()
     return outputs[0][0]
+
+
+@app.route("/")
+def index_page():
+    return render_template("index.html")
+
+
+@app.route("/model")
+def models():
+    return render_template("model.html")
 
 
 @app.route("/predict", methods=["POST", "GET"])
