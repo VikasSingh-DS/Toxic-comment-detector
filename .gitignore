@@ -130,6 +130,7 @@ dmypy.json
 
 
 # input data and models
+input/
 .vscode/
 
 
