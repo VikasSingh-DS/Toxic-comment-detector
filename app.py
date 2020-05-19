@@ -10,9 +10,7 @@ TOKENIZER = transformers.DistilBertTokenizer.from_pretrained(
 )
 DEVICE = "cpu"
 MODEL = DISTILBERTBaseUncased()
-MODEL.load_state_dict(
-    torch.load("weight.bin", map_location=lambda storage, loc: storage)
-)
+MODEL.load_state_dict(torch.load("weight.bin", map_location=torch.device("cpu")))
 MODEL.to(DEVICE)
 MODEL.eval()
 
