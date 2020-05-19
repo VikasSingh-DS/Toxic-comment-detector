@@ -1,1 +1,1 @@
-web: gunicorn app:app --worker-class geventlet --log-level debug
+web: gunicorn app:app --worker-class geventlet 
