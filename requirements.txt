@@ -1,5 +1,4 @@
-boto3==1.12.47
-botocore==1.15.47
+eventlet==0.25.2
 Flask==1.1.2
 gunicorn==20.0.4
 numpy==1.18.3
